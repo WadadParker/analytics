@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Visualisation from '../components/Visualisation';
+import FilterBar from '../components/FilterBar';
 
 const Home = () => {
 
@@ -18,8 +19,8 @@ const Home = () => {
     },[])
 
   return (
-    <div>
-        <h1>This is home</h1>
+    <div className='flex justify-center items-center flex-col'>
+        <FilterBar />
         {
             data===""
             ? <h1 className='text-2xl font-bold'>Loading</h1>
