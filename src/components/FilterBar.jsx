@@ -14,7 +14,7 @@ const FilterBar = ({filters,setFilters}) => {
         </legend>
         <aside>
             <label htmlFor='age' className='font-semibold'>Age:</label>
-            <select id='age' onChange={(e)=>changeHandler("age",e.target.value)}>
+            <select id='age' value={filters.age} onChange={(e)=>changeHandler("age",e.target.value)}>
                 <option value={""}>Any</option>
                 <option value={"15-25"}>15-25</option>
                 <option value={">25"}>{">25"}</option>
@@ -23,7 +23,7 @@ const FilterBar = ({filters,setFilters}) => {
 
         <aside>
             <label htmlFor='gender' className='font-semibold'>Gender:</label>
-            <select htmlFor="gender" onChange={(e)=>changeHandler("gender",e.target.value)}>
+            <select htmlFor="gender" value={filters.gender} onChange={(e)=>changeHandler("gender",e.target.value)}>
                 <option value={""}>Any</option>
                 <option value={"Male"}>Male</option>
                 <option value={"Female"}>Female</option>

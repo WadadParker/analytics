@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
+
 import Visualisation from '../components/Visualisation';
 import FilterBar from '../components/FilterBar';
+import ButtonContainer from '../components/ButtonContainer';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -8,6 +11,14 @@ const Home = () => {
 
     const [data,setData] = useState([]);
     const [filters,setFilters] = useState({age:"",gender:"",fromDate:"",toDate:""});
+    const {fromDate,toDate,age,gender} = useParams();
+
+    console.log(fromDate,toDate,age,gender,filters);
+    const checkFilters=()=>{
+    if(fromDate && toDate && age && gender)
+    {
+      setFilters({age,gender,fromDate,toDate})
+    }}
 
     const getData = async () =>
     {
@@ -40,13 +51,17 @@ const Home = () => {
     const filteredAgeAndGenderData = filterAgeAndGender();
     const filteredData = filterDateRange(filteredAgeAndGenderData);
 
+
+
     useEffect(()=>{
         getData();
+        checkFilters();
     },[])
 
   return (
     <div className='flex justify-center items-center flex-col'>
         <FilterBar filters={filters} setFilters={setFilters}/>
+        <ButtonContainer filters={filters}/>
         {
             data.length===0
             ? <h1 className='text-2xl font-bold'>Loading</h1>
