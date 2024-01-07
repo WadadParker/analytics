@@ -5,6 +5,8 @@ import Visualisation from '../components/Visualisation';
 import FilterBar from '../components/FilterBar';
 import ButtonContainer from '../components/ButtonContainer';
 
+import { getPreferencesFromCookie, setPreferencesCookie  } from '../utils/utils'; 
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Home = () => {
@@ -13,12 +15,16 @@ const Home = () => {
     const [filters,setFilters] = useState({age:"",gender:"",fromDate:"",toDate:""});
     const {fromDate,toDate,age,gender} = useParams();
 
-    console.log(fromDate,toDate,age,gender,filters);
     const checkFilters=()=>{
     if(fromDate && toDate && age && gender)
     {
       setFilters({age:age==="any"?"":age,gender:gender==="any"?"":gender,fromDate,toDate})
-    }}
+    }
+    else {
+      console.log(getPreferencesFromCookie());
+      setFilters(getPreferencesFromCookie());
+    }
+  }
 
     const getData = async () =>
     {
@@ -51,12 +57,15 @@ const Home = () => {
     const filteredAgeAndGenderData = filterAgeAndGender();
     const filteredData = filterDateRange(filteredAgeAndGenderData);
 
-
-
     useEffect(()=>{
         getData();
         checkFilters();
     },[])
+
+    useEffect(()=>{
+      if(filters.age!=="" && filters.gender!=="" && filters.fromDate!=="" && filters.toDate!=="")
+      setPreferencesCookie(filters);
+    },[filters])
 
   return (
     <div className='flex justify-center items-center flex-col'>

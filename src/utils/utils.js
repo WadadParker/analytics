@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 export const getShortDate = (dateString) => {
 
     const dateParts = dateString.split('/');
@@ -37,3 +39,27 @@ export const sanitizeData=(data)=>
 
     return chartData;
 }
+
+// Function to set a cookie with user preferences
+export const setPreferencesCookie = (filters) => {
+
+  document.cookie = 'userPreferences=' + JSON.stringify(filters) 
+  
+};
+
+// Function to get user preferences from the cookie
+export const getPreferencesFromCookie = () => {
+  const preferencesCookie = Cookies.get('userPreferences');
+  if (preferencesCookie) {
+    // const decodedPreferences = decodeURIComponent(preferencesCookie);
+    // return JSON.parse(decodedPreferences);
+    const nameValueArray = document.cookie.split('=');
+    return JSON.parse(nameValueArray[1]);
+  }
+  return {age:"",gender:"",fromDate:"",toDate:""};
+};
+
+// Function to clear user preferences stored in the cookie
+export const clearPreferencesCookie = () => {
+  Cookies.remove('userPreferences');
+};
