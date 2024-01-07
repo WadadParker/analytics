@@ -17,7 +17,7 @@ const Home = () => {
     const checkFilters=()=>{
     if(fromDate && toDate && age && gender)
     {
-      setFilters({age,gender,fromDate,toDate})
+      setFilters({age:age==="any"?"":age,gender:gender==="any"?"":gender,fromDate,toDate})
     }}
 
     const getData = async () =>

@@ -15,15 +15,17 @@ const ButtonContainer = ({filters}) => {
   const url = () =>
   {
     const currentURL = "http://localhost:5173/"
-    return `${currentURL}${filters.fromDate}/${filters.toDate}/${filters.age}/${filters.gender}`
+    return `${currentURL}${filters.fromDate}/${filters.toDate}/${filters.age===""?"any":filters.age}/${filters.gender===""?"any":filters.gender}`
   }
+
+  const isDisabled = () => filters.fromDate==="" || filters.toDate===""
 
   return (
     <>
     {showModal && <ShareUrlModal filters={filters} setShowModal={setShowModal} url={url()}/> }
     <section className='space-x-5 mt-3'>
       <button className='bg-red-400 text-white px-2 pb-1 rounded-lg border border-red-400 hover:text-red-400 hover:bg-white' onClick={logoutHandler}>Logout</button>
-      <button className='px-2 pb-1 border rounded-lg hover:shadow-lg' onClick={()=>setShowModal(true)}>Share URL</button>
+      <button className='px-2 pb-1 border rounded-lg hover:shadow-lg disabled:brightness-50 disabled:hover:cursor-not-allowed' onClick={()=>setShowModal(true)} disabled={isDisabled()}>Share URL</button>
     </section>
     </>
   )

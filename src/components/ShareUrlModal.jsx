@@ -20,7 +20,7 @@ const ShareUrlModal = ({setShowModal,url}) => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </section>
-        <p className='text-left text-gray-500 font-medium text-base leading-6 max-w-[90%] mt-4 mx-3'>Copy this link and send it to people you want to show the analytics with current filters</p>
+        <p className='text-left text-gray-500 font-medium text-base leading-6 max-w-[90%] mt-4 mx-3'>Note: The user needs to be logged in before they open the link</p>
 
         <section className='flex justify-between items-center bg-gray-100 p-3 rounded-md mt-5'>
             <p className=' text-gray-600 font-semibold line-clamp-1 text-left'>{url}</p>
