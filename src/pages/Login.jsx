@@ -15,9 +15,24 @@ const Login = () => {
 
     const clickHandler = async ()=>
     {
-        const response = await fetch(`${apiUrl}/login`);
+        try {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(input), 
+          };
+        const response = await fetch(`${apiUrl}/users/login`,requestOptions);
         const data = await response.json();
+        localStorage.setItem("token",JSON.stringify(data.user.token));
         setInput({email:"",password:""})
+        navigate('/');
+        }
+        catch(error)
+        {
+            console.log("Error loggin in",error);
+        }
     }
 
     const isDisabled = () => input.email==="" || input.password===""

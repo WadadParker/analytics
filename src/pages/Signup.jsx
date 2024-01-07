@@ -15,9 +15,25 @@ const Signup = () => {
 
     const clickHandler = async ()=>
     {
-        const response = await fetch(`${apiUrl}/signup`);
+        try{
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(input), 
+          };
+        const response = await fetch(`${apiUrl}/users/signup`,requestOptions);
         const data = await response.json();
-        setInput({email:"",password:""})
+        console.log(data);
+        localStorage.setItem("token",JSON.stringify(data.token));
+        setInput({email:"",password:""});
+        navigate('/');
+        }
+        catch(error)
+        {
+            console.log("Error registering",error);
+        }
     }
 
     const isDisabled = () => input.email==="" || input.password===""
