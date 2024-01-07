@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from 'recharts';
-
-// Sample data (replace this with your actual data)
-// const data = [
-//   { Day: '4/10/2022', A: 218, B: 857, C: 837, D: 161, E: 718, F: 573 },
-//   { Day: '4/11/2022', A: 317, B: 623, C: 930, D: 385, E: 400, F: 957 },
-//   // Add more data entries...
-// ];
+import { getShortDate } from '../utils/utils';
 
 const Visualisation = ({data}) => {
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleBarClick = (e) => {
+    setSelectedCategory(e.activeLabel);
+  };
+
+
   // Aggregate total time spent for each category across the selected date range
   const aggregateData = data.reduce((acc, entry) => {
     Object.keys(entry).forEach((key) => {
@@ -25,9 +27,14 @@ const Visualisation = ({data}) => {
     totalTime: aggregateData[key],
   })).reverse();
 
+  const dateData = data.map(item => ({
+    ...item,
+    Day: getShortDate(item.Day)
+  }));
+
   return (
     <div>
-      <BarChart width={600} height={300} data={chartData} layout="vertical">
+      <BarChart width={600} height={300} data={chartData} layout="vertical" onClick={handleBarClick}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis type="number" />
         <YAxis dataKey="category" type="category" />
@@ -35,6 +42,17 @@ const Visualisation = ({data}) => {
         <Legend />
         <Bar dataKey="totalTime" fill="#8884d8"  />
       </BarChart>
+
+      {selectedCategory && (
+        <LineChart width={600} height={300} data={dateData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="Day" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey={selectedCategory} stroke="#8884d8" />
+        </LineChart>
+      )}
     </div>
   );
 };
