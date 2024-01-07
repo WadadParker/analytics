@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, ReferenceArea, ResponsiveContainer } from 'recharts';
 import { getShortDate } from '../utils/utils';
 
 const Visualisation = ({data}) => {
@@ -51,6 +51,9 @@ const Visualisation = ({data}) => {
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey={selectedCategory} stroke="#8884d8" />
+
+          
+          
         </LineChart>
       )}
     </div>
