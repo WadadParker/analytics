@@ -16,3 +16,24 @@ export const getShortDate = (dateString) => {
   
     return `${day} ${month}`;
   };
+
+export const sanitizeData=(data)=>
+{
+    // Aggregate total time spent for each category across the selected date range
+    const aggregateData = data.reduce((acc, entry) => {
+      Object.keys(entry).forEach((key) => {
+        if (key !== 'Day' && key!=='_id' && key!=='Gender' && key!=='Age') {
+          acc[key] = (acc[key] || 0) + entry[key];
+        }
+      });
+      return acc;
+    }, {});
+  
+    // Convert aggregated data into an array format required for Recharts
+    const chartData = Object.keys(aggregateData).map((key) => ({
+      category: key,
+      totalTime: aggregateData[key],
+    })).reverse();
+
+    return chartData;
+}

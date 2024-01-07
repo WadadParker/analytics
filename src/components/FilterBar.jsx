@@ -8,7 +8,7 @@ const FilterBar = ({filters,setFilters}) => {
     }
 
   return (
-    <fieldset className='border border-gray-300 rounded-md pb-2 px-4 space-x-4 flex'>
+    <fieldset className='border border-gray-300 rounded-md pb-2 px-4 space-x-4 flex max-sm:grid max-sm:grid-cols-2'>
         <legend>
             Filters
         </legend>
