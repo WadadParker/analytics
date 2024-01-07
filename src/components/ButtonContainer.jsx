@@ -15,7 +15,7 @@ const ButtonContainer = ({filters}) => {
 
   const url = () =>
   {
-    const currentURL = "http://localhost:5173/"
+    const currentURL = "https://analytics-assignment.netlify.app/"
     return `${currentURL}${filters.fromDate}/${filters.toDate}/${filters.age===""?"any":filters.age}/${filters.gender===""?"any":filters.gender}`
   }
 
